@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Login & Daftar Ujian Online</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #74ebd5, #acb6e5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .box {
+      background: white;
+      padding: 40px;
+      border-radius: 10px;
+      width: 360px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    h2 { text-align: center; }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      width: 100%;
+      background: #007bff;
+      color: white;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .toggle {
+      margin-top: 10px;
+      text-align: center;
+    }
+    .msg {
+      text-align: center;
+      margin-bottom: 10px;
+      color: red;
+    }
+    .success {
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+<div class="box">
+  <h2 id="formTitle">Login</h2>
+
+  <?php include "auth.php"; ?>
+  <?php if ($error) echo "<div class='msg'>$error</div>"; ?>
+  <?php if ($success) echo "<div class='msg success'>$success</div>"; ?>
+
+  <form method="post" id="formLogin">
+    <input type="text" name="username" placeholder="Username" required>
+    <input type="password" name="password" placeholder="Password" required>
+    <button name="login" type="submit">Login</button>
+  </form>
+
+  <form method="post" id="formSignup" style="display:none;">
+    <input type="text" name="username" placeholder="Username baru" required>
+    <input type="password" name="password" placeholder="Password baru" required>
+    <button name="signup" type="submit">Daftar</button>
+  </form>
+
+  <div class="toggle">
+    <a href="#" onclick="toggleForm()">Belum punya akun? Daftar</a>
+  </div>
+</div>
+
+<script>
+  const formLogin = document.getElementById("formLogin");
+  const formSignup = document.getElementById("formSignup");
+  const formTitle = document.getElementById("formTitle");
+  const toggle = document.querySelector(".toggle a");
+
+  function toggleForm() {
+    if (formSignup.style.display === "none") {
+      formSignup.style.display = "block";
+      formLogin.style.display = "none";
+      formTitle.innerText = "Daftar";
+      toggle.innerText = "Sudah punya akun? Login";
+    } else {
+      formSignup.style.display = "none";
+      formLogin.style.display = "block";
+      formTitle.innerText = "Login";
+      toggle.innerText = "Belum punya akun? Daftar";
+    }
+  }
+</script>
+
+</body>
+</html>
